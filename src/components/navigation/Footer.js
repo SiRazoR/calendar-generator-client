@@ -9,7 +9,7 @@ export default class Footer extends React.Component {
         const steps = this.props.steps;
 
         return (
-            <div>
+            <div style={styles.root}>
                 {activeStep === steps.length - 1 ? (
                     <div>
                         <Typography style={styles.instructions}>
@@ -41,6 +41,9 @@ export default class Footer extends React.Component {
 }
 
 const styles = {
+    root: {
+        bottom:'0'
+    },
     backButton: {
         marginRight: 10,
     },

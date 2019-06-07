@@ -1,0 +1,39 @@
+import React from 'react';
+import GroupInput from "./GroupInput";
+import GroupSwitch from "./GroupSwitch";
+
+export default class GroupSelection extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+
+    render() {
+        return (
+            <div style={styles.root}>
+                <div style={styles.input}>
+                    <GroupInput />
+                </div>
+                <div>
+                    <GroupSwitch />
+                </div>
+            </div>
+
+        );
+    }
+}
+
+const styles = {
+    root: {
+        display: 'grid',
+        gridTemplateColumns: "1fr 1fr",
+        gridColumnGap: "10px",
+        marginTop: 30,
+        justifyContent: "center"
+    },
+    input: {
+        justifySelf: 'end',
+    }
+};
