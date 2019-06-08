@@ -16,6 +16,7 @@ export default class Home extends React.Component {
 
     addOneMoreGroupSection = () => {
         this.setState({numberOfGroups: ++this.state.numberOfGroups});
+        this.props.setNumberOfGroups(this.state.numberOfGroups);
         this.setState( { groupSelectionSections: [...this.state.groupSelectionSections,<GroupSelection/>]});
         console.log(this.state.numberOfGroups)
     };

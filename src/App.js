@@ -18,12 +18,17 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             activeStep: 0,
-            steps: ['Select group', 'Select lectures', 'Finish']
+            steps: ['Select group', 'Select lectures', 'Finish'],
+            numberOfGroups: 1
         };
     }
 
     setActiveStep = (value) => {
         this.setState({activeStep: value});
+    };
+
+    setNumberOfGroups = (value) => {
+        this.setState({numberOfGroups:value})
     };
 
     render() {
@@ -33,8 +38,8 @@ export default class App extends React.Component {
                     <Header activeStep={this.state.activeStep} steps={this.state.steps}/>
                     <div style={styles.content}>
                         <Line/>
-                        {this.state.activeStep === 0 && <Home/>}
-                        {this.state.activeStep === 1 && <LecturesSelection/>}
+                        {this.state.activeStep === 0 && <Home setNumberOfGroups={this.setNumberOfGroups}/>}
+                        {this.state.activeStep === 1 && <LecturesSelection getNumberofGroups={this.state.numberOfGroups}/>}
                         {this.state.activeStep === 2 && <Finish/>}
                     </div>
                     <div>
