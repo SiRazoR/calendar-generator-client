@@ -43,13 +43,12 @@ export default class LecturesSelection extends React.Component {
     };
 
     displayLectureList = () => {
-        let list = [];
-        let howMany = this.props.getNumberofGroups;
-        while(howMany != 0) {
-            list.push(<LecturesList setMandatory={this.mandatoryLectures} lectures={this.state.lectures}/>)
-            --howMany;
-        }
-        return list
+        console.log("received groups " + this.props.getSelectedGroups);
+        let groupsList = [];
+        this.props.getSelectedGroups.forEach( group => {
+            groupsList.push(<LecturesList setMandatory={this.mandatoryLectures} lectures={this.state.lectures}/>)
+        });
+        return groupsList
 
     };
 

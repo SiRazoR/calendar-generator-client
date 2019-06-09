@@ -2,7 +2,6 @@ import React from 'react';
 import Fab from '@material-ui/core/Fab';
 import logo from '../resources/logo.png';
 import GroupSelection from "../components/groupSelection/GroupSelection";
-import Button from "@material-ui/core/Button";
 
 export default class Home extends React.Component {
 
@@ -10,18 +9,40 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             numberOfGroups: 1,
-            groupSelectionSections: [<GroupSelection/>]
+            groupSelectionSections: [<GroupSelection addGroup={this.addGroup} removeGroup={this.removeGroup}/>],
+            selectedGroups: []
         };
 }
+    addGroup = (group) => {
+        if(this.state.selectedGroups.includes(group)){
+            console.log("This group is already added.")
+        } else {
+            console.log("Adding group " + group + " to the list.")
+            this.state.selectedGroups = [...this.state.selectedGroups,group];
+            this.props.setSelectedGroups(this.state.selectedGroups)
+        }
+    };
+
+    removeGroup = (group) => {
+        if(this.state.selectedGroups.includes(group)){
+            console.log("Form was edited, removing " + group + " from group list.")
+            let newArray = this.state.selectedGroups.filter(element => element !== group );
+            this.state.selectedGroups = newArray;
+            this.props.setSelectedGroups(this.state.selectedGroups)
+        }
+    };
 
     addOneMoreGroupSection = () => {
         this.setState({numberOfGroups: ++this.state.numberOfGroups});
         this.props.setNumberOfGroups(this.state.numberOfGroups);
-        this.setState( { groupSelectionSections: [...this.state.groupSelectionSections,<GroupSelection/>]});
+        this.setState( { groupSelectionSections: [...this.state.groupSelectionSections,<GroupSelection addGroup={this.addGroup} removeGroup={this.removeGroup}/>]});
         console.log(this.state.numberOfGroups)
     };
 
     render() {
+        if(this.props.activeStep !== 0){
+            console.log("NEXT PAGE")
+        }
         return (
             <div>
                 <div style={styles.logo}>

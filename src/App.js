@@ -31,6 +31,10 @@ export default class App extends React.Component {
         this.setState({numberOfGroups:value})
     };
 
+    setSelectedGroups = (value) => {
+        this.setState({selectedGroups: value})
+    };
+
     render() {
         return (
             <div style={styles.root}>
@@ -38,14 +42,14 @@ export default class App extends React.Component {
                     <Header activeStep={this.state.activeStep} steps={this.state.steps}/>
                     <div style={styles.content}>
                         <Line/>
-                        {this.state.activeStep === 0 && <Home setNumberOfGroups={this.setNumberOfGroups}/>}
-                        {this.state.activeStep === 1 && <LecturesSelection getNumberofGroups={this.state.numberOfGroups}/>}
+                        {this.state.activeStep === 0 && <Home  activeStep={this.state.activeStep}  setSelectedGroups={this.setSelectedGroups} setNumberOfGroups={this.setNumberOfGroups}/>}
+                        {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroups} getNumberofGroups={this.state.numberOfGroups}/>}
                         {this.state.activeStep === 2 && <Finish/>}
                     </div>
                     <div>
                         <Line/>
                         <Footer activeStep={this.state.activeStep} steps={this.state.steps}
-                                setActiveStep={this.setActiveStep}/>
+                                setActiveStep={this.setActiveStep} isThereAnyGroup={this.state.selectedGroups}/> //todo dezaktywować przycisk jak puste grupy
                     </div>
 
                 </Paper>

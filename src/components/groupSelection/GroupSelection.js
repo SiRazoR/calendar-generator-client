@@ -9,12 +9,15 @@ export default class GroupSelection extends React.Component {
         this.state = {};
     }
 
+    gotSelected = (value) => {
+        console.log("got" + value)
+    };
 
     render() {
         return (
             <div style={styles.root}>
                 <div style={styles.input}>
-                    <GroupInput />
+                    <GroupInput selected={this.gotSelected} addGroup={this.props.addGroup} removeGroup={this.props.removeGroup}/>
                 </div>
                 <div>
                     <GroupSwitch />
