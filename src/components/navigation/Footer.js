@@ -29,6 +29,7 @@ export default class Footer extends React.Component {
                                 Back
                             </Button>
                             <Button variant="contained" color="primary"
+                                    disabled={this.props.isThereAnyGroup.length === 0}
                                     onClick={this.props.setActiveStep.bind(this, activeStep + 1)}>
                                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                             </Button>

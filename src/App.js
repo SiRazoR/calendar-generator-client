@@ -19,7 +19,7 @@ export default class App extends React.Component {
         this.state = {
             activeStep: 0,
             steps: ['Select group', 'Select lectures', 'Finish'],
-            numberOfGroups: 1
+            selectedGroupsInput: []
         };
     }
 
@@ -27,12 +27,8 @@ export default class App extends React.Component {
         this.setState({activeStep: value});
     };
 
-    setNumberOfGroups = (value) => {
-        this.setState({numberOfGroups:value})
-    };
-
-    setSelectedGroups = (value) => {
-        this.setState({selectedGroups: value})
+    setSelectedGroupsInput = (value) => {
+        this.setState({selectedGroupsInput: value})
     };
 
     render() {
@@ -42,14 +38,14 @@ export default class App extends React.Component {
                     <Header activeStep={this.state.activeStep} steps={this.state.steps}/>
                     <div style={styles.content}>
                         <Line/>
-                        {this.state.activeStep === 0 && <Home  activeStep={this.state.activeStep}  setSelectedGroups={this.setSelectedGroups} setNumberOfGroups={this.setNumberOfGroups}/>}
-                        {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroups} getNumberofGroups={this.state.numberOfGroups}/>}
+                        {this.state.activeStep === 0 && <Home setSelectedGroupsInput={this.setSelectedGroupsInput}/>}
+                        {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroupsInput}/>}
                         {this.state.activeStep === 2 && <Finish/>}
                     </div>
                     <div>
                         <Line/>
                         <Footer activeStep={this.state.activeStep} steps={this.state.steps}
-                                setActiveStep={this.setActiveStep} isThereAnyGroup={this.state.selectedGroups}/> //todo dezaktywować przycisk jak puste grupy
+                                setActiveStep={this.setActiveStep} isThereAnyGroup={this.state.selectedGroupsInput}/>
                     </div>
 
                 </Paper>

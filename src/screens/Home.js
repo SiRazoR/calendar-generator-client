@@ -19,7 +19,8 @@ export default class Home extends React.Component {
         } else {
             console.log("Adding group " + group + " to the list.")
             this.state.selectedGroups = [...this.state.selectedGroups,group];
-            this.props.setSelectedGroups(this.state.selectedGroups)
+            this.props.setSelectedGroupsInput(this.state.selectedGroups);
+
         }
     };
 
@@ -28,21 +29,17 @@ export default class Home extends React.Component {
             console.log("Form was edited, removing " + group + " from group list.")
             let newArray = this.state.selectedGroups.filter(element => element !== group );
             this.state.selectedGroups = newArray;
-            this.props.setSelectedGroups(this.state.selectedGroups)
+            this.props.setSelectedGroupsInput(this.state.selectedGroups)
         }
     };
 
     addOneMoreGroupSection = () => {
         this.setState({numberOfGroups: ++this.state.numberOfGroups});
-        this.props.setNumberOfGroups(this.state.numberOfGroups);
         this.setState( { groupSelectionSections: [...this.state.groupSelectionSections,<GroupSelection addGroup={this.addGroup} removeGroup={this.removeGroup}/>]});
         console.log(this.state.numberOfGroups)
     };
 
     render() {
-        if(this.props.activeStep !== 0){
-            console.log("NEXT PAGE")
-        }
         return (
             <div>
                 <div style={styles.logo}>
@@ -54,7 +51,7 @@ export default class Home extends React.Component {
                 <div style = {styles.button}>
                     <div>
                         <Fab
-                            variant="extendeded"
+                            variant="extended"
                             size="medium"
                             color="primary"
                             aria-label="Add"

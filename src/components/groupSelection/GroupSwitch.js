@@ -35,6 +35,3 @@ export default class GroupSwitch extends React.Component {
         );
     }
 }
-
-const styles = {
-};

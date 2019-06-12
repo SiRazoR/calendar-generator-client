@@ -1,8 +1,5 @@
 import React from 'react';
 
-const styles = {
-};
-
 export default class Finish extends React.Component {
 
     constructor(props) {

@@ -10,7 +10,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import axios from 'axios';
 
 function not(a, b) {
     return a.filter(value => b.indexOf(value) === -1);
@@ -25,8 +24,6 @@ function union(a, b) {
 }
 
 export default function LecturesList(props) {
-
-
     return TransferList(props.lectures, props)
 }
 
@@ -122,7 +119,7 @@ function TransferList(lectures, props) {
     return (
 
         <React.Fragment>
-            Grupa 1241252
+            {props.group}
         <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
             <Grid item>{customList('Generate calendar with', left)}</Grid>
             <Grid item>
