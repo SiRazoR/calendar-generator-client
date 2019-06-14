@@ -12,7 +12,7 @@ export default class Finish extends React.Component {
 
     render() {
         return (
-            <p> finish  </p>
+            <p> finish  + {this.props.getGeneratedLink}</p>
         );
     }
 }

@@ -58,10 +58,10 @@ export default class LecturesSelection extends React.Component {
         } else {
             this.state.simpleScheduleGroupsId.forEach((id) => {
                 axios.get('https://uek-calendar-generator.herokuapp.com/calendar/distinct/' + id)
-                    .then(data => {
+                    .then(response => {
                         complexSchedule.groups.push({
-                            groupId: data.data.groupId,
-                            lecture: data.data.lecture
+                            groupId: response.data.groupId,
+                            lecture: response.data.lecture
                         });
                         console.log("Finished fetching, proceed to prepareDataForFinishPage");
                         this.prepareDataForFinishPage(complexSchedule)
@@ -71,8 +71,14 @@ export default class LecturesSelection extends React.Component {
     };
 
     prepareDataForFinishPage = (complexSchedule) => {
-        console.log("prepareDataForFinishPage");
-        console.log(complexSchedule);
+        let baseURL = "https://uek-calendar-generator.herokuapp.com/calendar/modified/";
+        axios.post('https://uek-calendar-generator.herokuapp.com/calendar/complex', complexSchedule)
+            .then(response => {
+                this.props.setGeneratedLink(baseURL + response.data.id);
+            });
+        this.setState({completed:true});
+        this.props.setStepTwoCompleted(true);
+        this.props.setActiveStep(this.props.getActiveStep + 1)
     };
 
     async componentDidMount() {
@@ -81,10 +87,10 @@ export default class LecturesSelection extends React.Component {
         groupsThatWillBeModified.forEach(async (group) => {
                 console.log("Fetching data for group: " + group.selectedGroup);
                 await axios.get('https://uek-calendar-generator.herokuapp.com/calendar/distinct/' + group.selectedGroup)
-                    .then(data => {
+                    .then(response => {
                         this.state.simpleSchedule.push({
-                            groupId: data.data.groupId,
-                            lecture: data.data.lecture
+                            groupId: response.data.groupId,
+                            lecture: response.data.lecture
                         });
                         if (this.state.simpleSchedule.length === groupsThatWillBeModified.length) {
                             console.log("Finished fetching data");

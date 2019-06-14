@@ -23,7 +23,9 @@ export default class App extends React.Component {
                 {identifier: "",
                  selectedGroup: "",
                  willModify: false}
-            ]
+            ],
+            isStepTwoCompleted: false,
+            generatedLink: ""
         };
     }
 
@@ -35,6 +37,15 @@ export default class App extends React.Component {
         await this.setState({selectedGroups: value});
     };
 
+    setStepTwoCompleted = (value) => {
+        this.setState({isStepTwoCompleted: value});
+    };
+
+    setGeneratedLink = (value) => {
+        console.log("URL generated: " + value);
+        this.setState({generatedLink: value});
+    };
+
     render() {
         return (
             <div style={styles.root}>
@@ -43,13 +54,19 @@ export default class App extends React.Component {
                     <div style={styles.content}>
                         <Line/>
                         {this.state.activeStep === 0 && <Home setSelectedGroups={this.setSelectedGroups}/>}
-                        {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroups}/>}
-                        {this.state.activeStep === 2 && <Finish/>}
+                        {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroups}
+                                                                           setStepTwoCompleted={this.setStepTwoCompleted}
+                                                                           setGeneratedLink={this.setGeneratedLink}
+                                                                           setActiveStep={this.setActiveStep}
+                                                                           getActiveStep={this.state.activeStep} />}
+                        {this.state.activeStep === 2 && <Finish getGeneratedLink={this.state.generatedLink}/>}
                     </div>
                     <div>
                         <Line/>
                         <Footer getActiveStep={this.state.activeStep} steps={this.state.steps}
-                                setActiveStep={this.setActiveStep} getSelectedGroups={this.state.selectedGroups}/>
+                                setActiveStep={this.setActiveStep} getSelectedGroups={this.state.selectedGroups}
+                                isStepTwoCompleted={this.state.isStepTwoCompleted}
+                        />
                     </div>
 
                 </Paper>

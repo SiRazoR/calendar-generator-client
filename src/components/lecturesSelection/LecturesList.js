@@ -187,6 +187,7 @@ function TransferList(lectures, props) {
                         &lt;
                     </Button>
                     <Button variant="contained" color="primary"
+                            disabled={disabled}
                             onClick={testMethod}>
                         Done
                     </Button>

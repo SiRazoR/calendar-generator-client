@@ -5,13 +5,19 @@ import Button from "@material-ui/core/Button";
 export default class Footer extends React.Component {
 
     shouldButtonBeGrayed = (groupList) => {
-        console.log("active step  " + this.props.getActiveStep)
         let shouldDisable = false;
-        groupList.forEach( element => {
-            if(element.selectedGroup === ""){
-                shouldDisable = true;
-            }
-        });
+        if(this.props.getActiveStep === 0){
+            groupList.forEach( element => {
+                if(element.selectedGroup === ""){
+                    shouldDisable = true;
+                }
+            });
+        }
+        if(this.props.getActiveStep === 1) {
+            console.log("should disable" + !this.props.isStepTwoCompleted )
+            shouldDisable = !this.props.isStepTwoCompleted
+        }
+
         return shouldDisable
     };
 
