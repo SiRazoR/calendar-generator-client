@@ -23,16 +23,51 @@ function union(a, b) {
     return [...a, ...not(b, a)];
 }
 
-export default function LecturesList(props) {
-    return TransferList(props.lectures, props)
+function extractLectureList(group) {
+    let lectures = [];
+    group.lecture.forEach( element => {
+        lectures.push(element.dayOfTheWeek + ", " + element.name);
+    });
+    return lectures
 }
 
+export default function LecturesList(props) {
+    return TransferList(extractLectureList(props.getGroup), props)
+}
+
+function updateLecturesMandatoryParam(props,ignoredLectures) {
+    resetMandatory(props.getGroup.lecture);
+    let days = [];
+    let names = [];
+    ignoredLectures.forEach( element => {
+        let splitData = element.split(", ");
+        days.push(splitData[0]);
+        names.push(splitData[1]);
+    });
+
+    names.forEach( (name, index) => {
+        props.getGroup.lecture.forEach( lecture => {
+            if(lecture.name == name && lecture.dayOfTheWeek == days[index]){
+                console.log("ignore " + lecture.name + " on day " + lecture.dayOfTheWeek);
+                lecture.mandatory = false
+            }
+        })
+    })
+}
+
+function resetMandatory(lectures){
+    console.log("reset mandatory")
+    lectures.forEach( lecture => {
+        lecture.mandatory = true
+    })
+}
 
 function TransferList(lectures, props) {
     const classes = useStyles();
     const [checked, setChecked] = React.useState([]);
     const [left, setLeft] = React.useState(lectures);
     const [right, setRight] = React.useState([]);
+    const [disabled,setDisabled] = React.useState(false)
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
@@ -46,7 +81,6 @@ function TransferList(lectures, props) {
         } else {
             newChecked.splice(currentIndex, 1);
         }
-
         setChecked(newChecked);
     };
 
@@ -64,28 +98,36 @@ function TransferList(lectures, props) {
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
+        updateLecturesMandatoryParam(props,right.concat(leftChecked))
     };
 
     const handleCheckedLeft = () => {
+
         setLeft(left.concat(rightChecked));
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
+        updateLecturesMandatoryParam(props,not(right, rightChecked))
     };
 
+
     const testMethod = () => {
-        props.setMandatory(left);
+        console.log("Disable modification and send data to parent");
+        setDisabled(true);
+        props.setDone();
     };
+
 
     const customList = (title, items) => (
         <Card>
             <CardHeader
                 className={classes.cardHeader}
+                disabled={disabled}
                 avatar={
                     <Checkbox
                         onClick={handleToggleAll(items)}
                         checked={numberOfChecked(items) === items.length && items.length !== 0}
                         indeterminate={numberOfChecked(items) !== items.length && numberOfChecked(items) !== 0}
-                        disabled={items.length === 0}
+                        disabled={items.length === 0 || disabled}
                         inputProps={{ 'aria-label': 'all lectures selected' }}
                     />
                 }
@@ -98,7 +140,7 @@ function TransferList(lectures, props) {
                     const labelId = `transfer-list-all-item-${value}-label`;
 
                     return (
-                        <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
+                        <ListItem key={value} role="listitem" disabled={disabled} button onClick={handleToggle(value)}>
                             <ListItemIcon>
                                 <Checkbox
                                     checked={checked.indexOf(value) !== -1}
@@ -119,7 +161,7 @@ function TransferList(lectures, props) {
     return (
 
         <React.Fragment>
-            {props.group}
+            {props.getGroup.groupId}
         <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
             <Grid item>{customList('Generate calendar with', left)}</Grid>
             <Grid item>
@@ -144,14 +186,14 @@ function TransferList(lectures, props) {
                     >
                         &lt;
                     </Button>
+                    <Button variant="contained" color="primary"
+                            onClick={testMethod}>
+                        Done
+                    </Button>
                 </Grid>
             </Grid>
             <Grid item>{customList('Ignore', right)}</Grid>
         </Grid>
-            <Button variant="contained" color="primary"
-                    onClick={testMethod}>
-                Click
-            </Button>
         </React.Fragment>
     );
 }

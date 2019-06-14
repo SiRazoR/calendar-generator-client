@@ -15,10 +15,10 @@ export default class GroupSwitch extends React.Component {
         };
     }
 
-        handleChange = () => {
-        this.setState({checked: !this.state.checked});
+        handleSwitchChange = async () => {
+        await this.setState({checked: !this.state.checked});
+        this.props.setWillModify(this.state.checked)
         };
-
 
     render() {
         return (
@@ -26,7 +26,7 @@ export default class GroupSwitch extends React.Component {
                 <FormLabel component="legend">Will you modify schedule?</FormLabel>
                 <FormGroup>
                     <FormControlLabel
-                        control={<Switch checked={this.state.checked} onChange={this.handleChange} value="gilad" />}
+                        control={<Switch checked={this.state.checked} onChange={this.handleSwitchChange} value="gilad" />}
                         label={this.state.checked ? "Yes, please" : "No, thanks"}
                     />
                 </FormGroup>

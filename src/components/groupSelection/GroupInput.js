@@ -29,9 +29,9 @@ export default function GroupInput(props) {
                       selectedItem,
                   }) => {
                     if(selectedItem === inputValue && isOpen === false){
-                        props.addGroup(selectedItem);
+                        props.setGroup(selectedItem);
                     } else if (selectedItem !== null) {
-                        props.removeGroup(selectedItem);
+                       // props.removeGroup(selectedItem);
                     }
                     const {onBlur, onFocus, ...inputProps} = getInputProps({
                         placeholder: 'Search for your group',

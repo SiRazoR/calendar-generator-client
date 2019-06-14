@@ -4,8 +4,19 @@ import Button from "@material-ui/core/Button";
 
 export default class Footer extends React.Component {
 
+    shouldButtonBeGrayed = (groupList) => {
+        console.log("active step  " + this.props.getActiveStep)
+        let shouldDisable = false;
+        groupList.forEach( element => {
+            if(element.selectedGroup === ""){
+                shouldDisable = true;
+            }
+        });
+        return shouldDisable
+    };
+
     render() {
-        const activeStep = this.props.activeStep;
+        const activeStep = this.props.getActiveStep;
         const steps = this.props.steps;
 
         return (
@@ -29,7 +40,7 @@ export default class Footer extends React.Component {
                                 Back
                             </Button>
                             <Button variant="contained" color="primary"
-                                    disabled={this.props.isThereAnyGroup.length === 0}
+                                    disabled={this.shouldButtonBeGrayed(this.props.getSelectedGroups)}
                                     onClick={this.props.setActiveStep.bind(this, activeStep + 1)}>
                                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                             </Button>

@@ -6,21 +6,38 @@ export default class GroupSelection extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            selectedGroup: "",
+            willModify: false
+        };
     }
 
-    gotSelected = (value) => {
-        console.log("got" + value)
+    setGroup = (group) => {
+            this.state.selectedGroup = group;
+            this.updateParentData();
+    };
+
+    setWillModify = (value) => {
+        this.state.willModify = value;
+        this.updateParentData();
+    };
+
+    updateParentData = () => {
+        this.props.handleGroup({
+            identifier: this.props.identifier,
+            selectedGroup: this.state.selectedGroup,
+            willModify: this.state.willModify
+        })
     };
 
     render() {
         return (
             <div style={styles.root}>
                 <div style={styles.input}>
-                    <GroupInput selected={this.gotSelected} addGroup={this.props.addGroup} removeGroup={this.props.removeGroup}/>
+                    <GroupInput setGroup={this.setGroup}/>
                 </div>
                 <div>
-                    <GroupSwitch />
+                    <GroupSwitch setWillModify={this.setWillModify}/>
                 </div>
             </div>
 

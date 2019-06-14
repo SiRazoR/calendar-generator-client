@@ -9,34 +9,38 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             numberOfGroups: 1,
-            groupSelectionSections: [<GroupSelection addGroup={this.addGroup} removeGroup={this.removeGroup}/>],
-            selectedGroups: []
+            groupSelectionSections: [<GroupSelection handleGroup={this.handleGroupChange} identifier={0}/>],
+            selectedGroups: [
+                {identifier: "",
+                selectedGroup: "",
+                willModify: false}
+            ]
         };
 }
-    addGroup = (group) => {
-        if(this.state.selectedGroups.includes(group)){
-            console.log("This group is already added.")
-        } else {
-            console.log("Adding group " + group + " to the list.")
-            this.state.selectedGroups = [...this.state.selectedGroups,group];
-            this.props.setSelectedGroupsInput(this.state.selectedGroups);
 
+    handleGroupChange = (group) => {
+        let found = false;
+        this.state.selectedGroups.forEach( element => {
+            if(element.identifier === "" || element.identifier === group.identifier){
+                console.log("Group already added, append data.");
+                found = true;
+                element.identifier = group.identifier;
+                element.selectedGroup = group.selectedGroup;
+                element.willModify = group.willModify;
+            }
+        });
+        if(!found) {
+            console.log("Group not found on the list, add new one.");
+            this.state.selectedGroups.push(group)
         }
-    };
-
-    removeGroup = (group) => {
-        if(this.state.selectedGroups.includes(group)){
-            console.log("Form was edited, removing " + group + " from group list.")
-            let newArray = this.state.selectedGroups.filter(element => element !== group );
-            this.state.selectedGroups = newArray;
-            this.props.setSelectedGroupsInput(this.state.selectedGroups)
-        }
+        console.log("Current groups: " + JSON.stringify(this.state.selectedGroups));
+        this.props.setSelectedGroups(this.state.selectedGroups);
     };
 
     addOneMoreGroupSection = () => {
+        console.log("Create switch for group " + this.state.numberOfGroups);
+        this.setState( { groupSelectionSections: [...this.state.groupSelectionSections,<GroupSelection handleGroup={this.handleGroupChange} identifier={this.state.numberOfGroups}/>]});
         this.setState({numberOfGroups: ++this.state.numberOfGroups});
-        this.setState( { groupSelectionSections: [...this.state.groupSelectionSections,<GroupSelection addGroup={this.addGroup} removeGroup={this.removeGroup}/>]});
-        console.log(this.state.numberOfGroups)
     };
 
     render() {

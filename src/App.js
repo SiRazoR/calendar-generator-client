@@ -19,7 +19,11 @@ export default class App extends React.Component {
         this.state = {
             activeStep: 0,
             steps: ['Select group', 'Select lectures', 'Finish'],
-            selectedGroupsInput: []
+            selectedGroups: [
+                {identifier: "",
+                 selectedGroup: "",
+                 willModify: false}
+            ]
         };
     }
 
@@ -27,8 +31,8 @@ export default class App extends React.Component {
         this.setState({activeStep: value});
     };
 
-    setSelectedGroupsInput = (value) => {
-        this.setState({selectedGroupsInput: value})
+    setSelectedGroups = async (value) => {
+        await this.setState({selectedGroups: value});
     };
 
     render() {
@@ -38,14 +42,14 @@ export default class App extends React.Component {
                     <Header activeStep={this.state.activeStep} steps={this.state.steps}/>
                     <div style={styles.content}>
                         <Line/>
-                        {this.state.activeStep === 0 && <Home setSelectedGroupsInput={this.setSelectedGroupsInput}/>}
-                        {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroupsInput}/>}
+                        {this.state.activeStep === 0 && <Home setSelectedGroups={this.setSelectedGroups}/>}
+                        {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroups}/>}
                         {this.state.activeStep === 2 && <Finish/>}
                     </div>
                     <div>
                         <Line/>
-                        <Footer activeStep={this.state.activeStep} steps={this.state.steps}
-                                setActiveStep={this.setActiveStep} isThereAnyGroup={this.state.selectedGroupsInput}/>
+                        <Footer getActiveStep={this.state.activeStep} steps={this.state.steps}
+                                setActiveStep={this.setActiveStep} getSelectedGroups={this.state.selectedGroups}/>
                     </div>
 
                 </Paper>
