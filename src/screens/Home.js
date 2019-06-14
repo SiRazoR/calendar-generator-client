@@ -11,17 +11,19 @@ export default class Home extends React.Component {
             numberOfGroups: 1,
             groupSelectionSections: [<GroupSelection handleGroup={this.handleGroupChange} identifier={0}/>],
             selectedGroups: [
-                {identifier: "",
-                selectedGroup: "",
-                willModify: false}
+                {
+                    identifier: "",
+                    selectedGroup: "",
+                    willModify: false
+                }
             ]
         };
-}
+    }
 
     handleGroupChange = (group) => {
         let found = false;
-        this.state.selectedGroups.forEach( element => {
-            if(element.identifier === "" || element.identifier === group.identifier){
+        this.state.selectedGroups.forEach(element => {
+            if (element.identifier === "" || element.identifier === group.identifier) {
                 console.log("Group already added, append data.");
                 found = true;
                 element.identifier = group.identifier;
@@ -29,7 +31,7 @@ export default class Home extends React.Component {
                 element.willModify = group.willModify;
             }
         });
-        if(!found) {
+        if (!found) {
             console.log("Group not found on the list, add new one.");
             this.state.selectedGroups.push(group)
         }
@@ -39,7 +41,10 @@ export default class Home extends React.Component {
 
     addOneMoreGroupSection = () => {
         console.log("Create switch for group " + this.state.numberOfGroups);
-        this.setState( { groupSelectionSections: [...this.state.groupSelectionSections,<GroupSelection handleGroup={this.handleGroupChange} identifier={this.state.numberOfGroups}/>]});
+        this.setState({
+            groupSelectionSections: [...this.state.groupSelectionSections,
+                <GroupSelection handleGroup={this.handleGroupChange} identifier={this.state.numberOfGroups}/>]
+        });
         this.setState({numberOfGroups: ++this.state.numberOfGroups});
     };
 
@@ -52,7 +57,7 @@ export default class Home extends React.Component {
                 <div style={styles.content}>
                     {this.state.groupSelectionSections}
                 </div>
-                <div style = {styles.button}>
+                <div style={styles.button}>
                     <div>
                         <Fab
                             variant="extended"
@@ -76,8 +81,7 @@ const styles = {
         verticalAlign: 'center',
         display: 'flex',
     },
-    content: {
-    },
+    content: {},
     button: {
         display: 'grid',
         gridTemplateColumns: "1fr",

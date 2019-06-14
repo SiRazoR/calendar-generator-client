@@ -13,13 +13,33 @@ export default class LecturesSelection extends React.Component {
         simpleSchedule: [],
         complexSchedule: []
     };
+    async componentDidMount() {
+        console.log("Mounted with groups: " + JSON.stringify(this.props.getSelectedGroups));
+        let groupsThatWillBeModified = this.getGroupsThatWillBeModified(this.props.getSelectedGroups);
+        groupsThatWillBeModified.forEach(async (group) => {
+                console.log("Fetching data for group: " + group.selectedGroup);
+                await axios.get('https://uek-calendar-generator.herokuapp.com/calendar/distinct/' + group.selectedGroup)
+                    .then(response => {
+                        this.state.simpleSchedule.push({
+                            groupId: response.data.groupId,
+                            lecture: response.data.lecture
+                        });
+                        if (this.state.simpleSchedule.length === groupsThatWillBeModified.length) {
+                            console.log("Finished fetching data");
+                            this.setState({dataMounted: true});
+                        }
+                    })
+                ;
+            }
+        );
+    }
 
     getGroupsThatWillBeModified = (groups) => {
         let newList = [];
         let groupIds = [];
         groups.forEach(group => {
             if (!groupIds.includes(group.selectedGroup) && group.willModify === true) {
-                console.log("Found group " + group.selectedGroup + " that will be modified")
+                console.log("Found group " + group.selectedGroup + " that will be modified");
                 newList.push(group);
                 groupIds.push(group.selectedGroup);
             } else if (!groupIds.includes(group.selectedGroup) && group.willModify === false) {
@@ -35,9 +55,6 @@ export default class LecturesSelection extends React.Component {
         return newList;
     };
 
-// {identifier: "",
-//     selectedGroup: "",
-//     willModify: false}
     buildSchedule = () => {
         let complexSchedule = {
             groups: []
@@ -76,45 +93,20 @@ export default class LecturesSelection extends React.Component {
             .then(response => {
                 this.props.setGeneratedLink(baseURL + response.data.id);
             });
-        this.setState({completed:true});
+        this.setState({completed: true});
         this.props.setStepTwoCompleted(true);
         this.props.setActiveStep(this.props.getActiveStep + 1)
     };
 
-    async componentDidMount() {
-        console.log("Mounted with groups: " + JSON.stringify(this.props.getSelectedGroups));
-        let groupsThatWillBeModified = this.getGroupsThatWillBeModified(this.props.getSelectedGroups);
-        groupsThatWillBeModified.forEach(async (group) => {
-                console.log("Fetching data for group: " + group.selectedGroup);
-                await axios.get('https://uek-calendar-generator.herokuapp.com/calendar/distinct/' + group.selectedGroup)
-                    .then(response => {
-                        this.state.simpleSchedule.push({
-                            groupId: response.data.groupId,
-                            lecture: response.data.lecture
-                        });
-                        if (this.state.simpleSchedule.length === groupsThatWillBeModified.length) {
-                            console.log("Finished fetching data");
-                            this.setState({dataMounted: true});
-                        }
-                    })
-                ;
-            }
-        );
-    }
-
-    //do pobrania lektur
     setDone = () => {
         ++this.state.numberOfCompletedModifications;
         if (this.state.numberOfCompletedModifications === this.state.simpleSchedule.length) {
             console.log("same length, send POST");
             this.buildSchedule()
-            //send POST to generate
-            //display NEXT
         }
     };
 
-    displayLectureList = () => {
-        console.log("Display lectures for groups: " + JSON.stringify(this.state.complexSchedule));
+    renderLectures = () => {
         let groupsList = [];
         this.state.simpleSchedule.forEach((group) => {
             groupsList.push(<LecturesList setDone={this.setDone} getGroup={group}/>);
@@ -126,7 +118,7 @@ export default class LecturesSelection extends React.Component {
         return (
             <React.Fragment>
                 {this.state.dataMounted === true &&
-                this.displayLectureList()
+                this.renderLectures()
                 }
 
                 {this.state.dataMounted === false &&

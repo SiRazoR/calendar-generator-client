@@ -28,10 +28,8 @@ export default function GroupInput(props) {
                       isOpen,
                       selectedItem,
                   }) => {
-                    if(selectedItem === inputValue && isOpen === false){
+                    if (selectedItem === inputValue && isOpen === false) {
                         props.setGroup(selectedItem);
-                    } else if (selectedItem !== null) {
-                       // props.removeGroup(selectedItem);
                     }
                     const {onBlur, onFocus, ...inputProps} = getInputProps({
                         placeholder: 'Search for your group',

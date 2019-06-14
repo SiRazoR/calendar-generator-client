@@ -7,6 +7,7 @@ import Finish from './screens/Finish'
 import LecturesSelection from './screens/LecturesSelection'
 import Header from './components/navigation/Header'
 import Footer from './components/navigation/Footer'
+import axios from "axios";
 
 const Line = () => (
     <hr style={{color: '#f5f5f5'}}/>
@@ -20,13 +21,18 @@ export default class App extends React.Component {
             activeStep: 0,
             steps: ['Select group', 'Select lectures', 'Finish'],
             selectedGroups: [
-                {identifier: "",
-                 selectedGroup: "",
-                 willModify: false}
+                {
+                    identifier: "",
+                    selectedGroup: "",
+                    willModify: false
+                }
             ],
             isStepTwoCompleted: false,
             generatedLink: ""
         };
+
+        console.log("Waking up API that provides calendar data.");
+        axios.get('https://uek-calendar-generator.herokuapp.com/')
     }
 
     setActiveStep = (value) => {
@@ -58,7 +64,7 @@ export default class App extends React.Component {
                                                                            setStepTwoCompleted={this.setStepTwoCompleted}
                                                                            setGeneratedLink={this.setGeneratedLink}
                                                                            setActiveStep={this.setActiveStep}
-                                                                           getActiveStep={this.state.activeStep} />}
+                                                                           getActiveStep={this.state.activeStep}/>}
                         {this.state.activeStep === 2 && <Finish getGeneratedLink={this.state.generatedLink}/>}
                     </div>
                     <div>

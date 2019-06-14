@@ -6,15 +6,15 @@ export default class Footer extends React.Component {
 
     shouldButtonBeGrayed = (groupList) => {
         let shouldDisable = false;
-        if(this.props.getActiveStep === 0){
-            groupList.forEach( element => {
-                if(element.selectedGroup === ""){
+        if (this.props.getActiveStep === 0) {
+            groupList.forEach(element => {
+                if (element.selectedGroup === "") {
                     shouldDisable = true;
                 }
             });
         }
-        if(this.props.getActiveStep === 1) {
-            console.log("should disable" + !this.props.isStepTwoCompleted )
+        if (this.props.getActiveStep === 1) {
+            console.log("should disable" + !this.props.isStepTwoCompleted);
             shouldDisable = !this.props.isStepTwoCompleted
         }
 
@@ -60,7 +60,7 @@ export default class Footer extends React.Component {
 
 const styles = {
     root: {
-        bottom:'0'
+        bottom: '0'
     },
     backButton: {
         marginRight: 10,

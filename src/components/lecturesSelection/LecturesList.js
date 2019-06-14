@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import Card from '@material-ui/core/Card';
@@ -25,7 +25,7 @@ function union(a, b) {
 
 function extractLectureList(group) {
     let lectures = [];
-    group.lecture.forEach( element => {
+    group.lecture.forEach(element => {
         lectures.push(element.dayOfTheWeek + ", " + element.name);
     });
     return lectures
@@ -35,19 +35,19 @@ export default function LecturesList(props) {
     return TransferList(extractLectureList(props.getGroup), props)
 }
 
-function updateLecturesMandatoryParam(props,ignoredLectures) {
+function updateLecturesMandatoryParam(props, ignoredLectures) {
     resetMandatory(props.getGroup.lecture);
     let days = [];
     let names = [];
-    ignoredLectures.forEach( element => {
+    ignoredLectures.forEach(element => {
         let splitData = element.split(", ");
         days.push(splitData[0]);
         names.push(splitData[1]);
     });
 
-    names.forEach( (name, index) => {
-        props.getGroup.lecture.forEach( lecture => {
-            if(lecture.name == name && lecture.dayOfTheWeek == days[index]){
+    names.forEach((name, index) => {
+        props.getGroup.lecture.forEach(lecture => {
+            if (lecture.name == name && lecture.dayOfTheWeek == days[index]) {
                 console.log("ignore " + lecture.name + " on day " + lecture.dayOfTheWeek);
                 lecture.mandatory = false
             }
@@ -55,9 +55,9 @@ function updateLecturesMandatoryParam(props,ignoredLectures) {
     })
 }
 
-function resetMandatory(lectures){
-    console.log("reset mandatory")
-    lectures.forEach( lecture => {
+function resetMandatory(lectures) {
+    console.log("reset mandatory");
+    lectures.forEach(lecture => {
         lecture.mandatory = true
     })
 }
@@ -67,7 +67,7 @@ function TransferList(lectures, props) {
     const [checked, setChecked] = React.useState([]);
     const [left, setLeft] = React.useState(lectures);
     const [right, setRight] = React.useState([]);
-    const [disabled,setDisabled] = React.useState(false)
+    const [disabled, setDisabled] = React.useState(false);
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
@@ -98,7 +98,7 @@ function TransferList(lectures, props) {
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
-        updateLecturesMandatoryParam(props,right.concat(leftChecked))
+        updateLecturesMandatoryParam(props, right.concat(leftChecked))
     };
 
     const handleCheckedLeft = () => {
@@ -106,7 +106,7 @@ function TransferList(lectures, props) {
         setLeft(left.concat(rightChecked));
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
-        updateLecturesMandatoryParam(props,not(right, rightChecked))
+        updateLecturesMandatoryParam(props, not(right, rightChecked))
     };
 
 
@@ -128,13 +128,13 @@ function TransferList(lectures, props) {
                         checked={numberOfChecked(items) === items.length && items.length !== 0}
                         indeterminate={numberOfChecked(items) !== items.length && numberOfChecked(items) !== 0}
                         disabled={items.length === 0 || disabled}
-                        inputProps={{ 'aria-label': 'all lectures selected' }}
+                        inputProps={{'aria-label': 'all lectures selected'}}
                     />
                 }
                 title={title}
                 subheader={`${items.length} lectures`}
             />
-            <Divider />
+            <Divider/>
             <List className={classes.list} dense component="div" role="list">
                 {items.map(value => {
                     const labelId = `transfer-list-all-item-${value}-label`;
@@ -146,14 +146,14 @@ function TransferList(lectures, props) {
                                     checked={checked.indexOf(value) !== -1}
                                     tabIndex={-1}
                                     disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
+                                    inputProps={{'aria-labelledby': labelId}}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={`${value}`} />
+                            <ListItemText id={labelId} primary={`${value}`}/>
                         </ListItem>
                     );
                 })}
-                <ListItem />
+                <ListItem/>
             </List>
         </Card>
     );
@@ -162,39 +162,39 @@ function TransferList(lectures, props) {
 
         <React.Fragment>
             {props.getGroup.groupId}
-        <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
-            <Grid item>{customList('Generate calendar with', left)}</Grid>
-            <Grid item>
-                <Grid container direction="column" alignItems="center">
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
-                        aria-label="move selected right"
-                    >
-                        &gt;
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
-                        aria-label="move selected left"
-                    >
-                        &lt;
-                    </Button>
-                    <Button variant="contained" color="primary"
-                            disabled={disabled}
-                            onClick={testMethod}>
-                        Done
-                    </Button>
+            <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
+                <Grid item>{customList('Generate calendar with', left)}</Grid>
+                <Grid item>
+                    <Grid container direction="column" alignItems="center">
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            className={classes.button}
+                            onClick={handleCheckedRight}
+                            disabled={leftChecked.length === 0}
+                            aria-label="move selected right"
+                        >
+                            &gt;
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            className={classes.button}
+                            onClick={handleCheckedLeft}
+                            disabled={rightChecked.length === 0}
+                            aria-label="move selected left"
+                        >
+                            &lt;
+                        </Button>
+                        <Button variant="contained" color="primary"
+                                disabled={disabled}
+                                onClick={testMethod}>
+                            Done
+                        </Button>
+                    </Grid>
                 </Grid>
+                <Grid item>{customList('Ignore', right)}</Grid>
             </Grid>
-            <Grid item>{customList('Ignore', right)}</Grid>
-        </Grid>
         </React.Fragment>
     );
 }

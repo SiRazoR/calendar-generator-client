@@ -13,8 +13,8 @@ export default class GroupSelection extends React.Component {
     }
 
     setGroup = (group) => {
-            this.state.selectedGroup = group;
-            this.updateParentData();
+        this.state.selectedGroup = group;
+        this.updateParentData();
     };
 
     setWillModify = (value) => {
