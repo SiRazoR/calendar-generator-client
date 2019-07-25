@@ -23,32 +23,37 @@ function union(a, b) {
     return [...a, ...not(b, a)];
 }
 
-function extractLectureList(group) {
+export default function LecturesList(props) {
+    return TransferList(convertLectureToReadableArray(props.getGroup), props)
+}
+
+const stringRepresentationOfDays =["", " w niedziele", " w poniedziałki", " we wtorki", " w środy", " w czwartki", " w piątki", " w soboty"];
+
+function convertLectureToReadableArray(group) {
     let lectures = [];
     group.lecture.forEach(element => {
-        lectures.push(element.dayOfTheWeek + ", " + element.name);
+        lectures.push(element.name + stringRepresentationOfDays[element.dayOfTheWeek]);
     });
     return lectures
 }
 
-export default function LecturesList(props) {
-    return TransferList(extractLectureList(props.getGroup), props)
-}
-
-function updateLecturesMandatoryParam(props, ignoredLectures) {
+function setIgnoredLectures(props, ignoredLectures) {
     resetMandatory(props.getGroup.lecture);
     let days = [];
-    let names = [];
-    ignoredLectures.forEach(element => {
-        let splitData = element.split(", ");
-        days.push(splitData[0]);
-        names.push(splitData[1]);
+    let lectureNames = [];
+    ignoredLectures.forEach(lecture => {
+        stringRepresentationOfDays.forEach((day,numericDay) => {
+            if(lecture.includes(day)){
+                days.push(numericDay);
+                lectureNames.push(lecture.split(day)[0]);
+            }
+        })
     });
 
-    names.forEach((name, index) => {
+    lectureNames.forEach((name, index) => {
         props.getGroup.lecture.forEach(lecture => {
             if (lecture.name == name && lecture.dayOfTheWeek == days[index]) {
-                console.log("ignore " + lecture.name + " on day " + lecture.dayOfTheWeek);
+                console.log("Ignore " + lecture.name + " on day " + lecture.dayOfTheWeek);
                 lecture.mandatory = false
             }
         })
@@ -98,7 +103,7 @@ function TransferList(lectures, props) {
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
-        updateLecturesMandatoryParam(props, right.concat(leftChecked))
+        setIgnoredLectures(props, right.concat(leftChecked))
     };
 
     const handleCheckedLeft = () => {
@@ -106,11 +111,11 @@ function TransferList(lectures, props) {
         setLeft(left.concat(rightChecked));
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
-        updateLecturesMandatoryParam(props, not(right, rightChecked))
+        setIgnoredLectures(props, not(right, rightChecked))
     };
 
 
-    const testMethod = () => {
+    const setDone = () => {
         console.log("Disable modification and send data to parent");
         setDisabled(true);
         props.setDone();
@@ -188,7 +193,7 @@ function TransferList(lectures, props) {
                         </Button>
                         <Button variant="contained" color="primary"
                                 disabled={disabled}
-                                onClick={testMethod}>
+                                onClick={setDone}>
                             Done
                         </Button>
                     </Grid>

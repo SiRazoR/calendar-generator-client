@@ -101,7 +101,6 @@ export default class LecturesSelection extends React.Component {
     setDone = () => {
         ++this.state.numberOfCompletedModifications;
         if (this.state.numberOfCompletedModifications === this.state.simpleSchedule.length) {
-            console.log("same length, send POST");
             this.buildSchedule()
         }
     };
