@@ -6,15 +6,24 @@ import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
+import axios from "axios";
 
-const suggestions = [
-    {label: '140781'},
-    {label: '140751'},
-    {label: '67541'}
+var suggestions = [
 ];
+
+var groups = {}
 
 export default function GroupInput(props) {
     const classes = useStyles();
+
+    axios.get('https://uek-calendar-generator.herokuapp.com/calendar/groups')
+        .then(response => {
+            groups = response.data
+            for(var key in response.data){
+                suggestions.push({label:response.data[key]})
+             }
+        });
+
     return (
         <div className={classes.root}>
             <Downshift id="downshift-simple">
@@ -29,7 +38,8 @@ export default function GroupInput(props) {
                       selectedItem,
                   }) => {
                     if (selectedItem === inputValue && isOpen === false) {
-                        props.setGroup(selectedItem);
+                        console.log("selected: " + getKeyByValue(groups,selectedItem))
+                        props.setGroup(getKeyByValue(groups,selectedItem));
                     }
                     const {onBlur, onFocus, ...inputProps} = getInputProps({
                         placeholder: 'Search for your group',
@@ -68,6 +78,11 @@ export default function GroupInput(props) {
         </div>
     );
 }
+
+function getKeyByValue(object, value) {  
+    return Object.keys(object).find(key => object[key] === value);
+}
+
 
 function renderInput(inputProps) {
     const {InputProps, classes, ref, ...other} = inputProps;
