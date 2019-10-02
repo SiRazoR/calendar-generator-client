@@ -24,6 +24,7 @@ export default class App extends React.Component {
                 {
                     identifier: "",
                     selectedGroup: "",
+                    groupName:"",
                     willModify: false
                 }
             ],
@@ -37,6 +38,14 @@ export default class App extends React.Component {
 
     setActiveStep = (value) => {
         this.setState({activeStep: value});
+        if(value === 0) {
+            this.setSelectedGroups([{
+                identifier: "",
+                selectedGroup: "",
+                groupName:"",
+                willModify: false
+            }]);
+        }
     };
 
     setSelectedGroups = async (value) => {

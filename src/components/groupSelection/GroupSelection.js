@@ -8,12 +8,14 @@ export default class GroupSelection extends React.Component {
         super(props);
         this.state = {
             selectedGroup: "",
+            groupName:"",
             willModify: false
         };
     }
 
-    setGroup = (group) => {
-        this.state.selectedGroup = group;
+    setGroup = (groupId, groupName) => {
+        this.state.selectedGroup = groupId;
+        this.state.groupName = groupName;
         this.updateParentData();
     };
 
@@ -26,6 +28,7 @@ export default class GroupSelection extends React.Component {
         this.props.handleGroup({
             identifier: this.props.identifier,
             selectedGroup: this.state.selectedGroup,
+            groupName: this.state.groupName,
             willModify: this.state.willModify
         })
     };
@@ -34,7 +37,7 @@ export default class GroupSelection extends React.Component {
         return (
             <div style={styles.root}>
                 <div style={styles.input}>
-                    <GroupInput setGroup={this.setGroup}/>
+                    <GroupInput setGroupId={this.setGroup}/>
                 </div>
                 <div>
                     <GroupSwitch setWillModify={this.setWillModify}/>

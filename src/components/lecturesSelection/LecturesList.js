@@ -166,7 +166,7 @@ function TransferList(lectures, props) {
     return (
 
         <React.Fragment>
-            {props.getGroup.groupId}
+            {props.getGroup.groupName}
             <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
                 <Grid item>{customList('Generate calendar with', left)}</Grid>
                 <Grid item>

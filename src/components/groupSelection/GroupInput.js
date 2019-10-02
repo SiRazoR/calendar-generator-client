@@ -38,8 +38,7 @@ export default function GroupInput(props) {
                       selectedItem,
                   }) => {
                     if (selectedItem === inputValue && isOpen === false) {
-                        console.log("selected: " + getKeyByValue(groups,selectedItem))
-                        props.setGroup(getKeyByValue(groups,selectedItem));
+                        props.setGroupId(getKeyByValue(groups,selectedItem), selectedItem);
                     }
                     const {onBlur, onFocus, ...inputProps} = getInputProps({
                         placeholder: 'Search for your group',

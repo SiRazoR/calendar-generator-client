@@ -22,6 +22,7 @@ export default class LecturesSelection extends React.Component {
                     .then(response => {
                         this.state.simpleSchedule.push({
                             groupId: response.data.groupId,
+                            groupName: group.groupName,
                             lecture: response.data.lecture
                         });
                         if (this.state.simpleSchedule.length === groupsThatWillBeModified.length) {
@@ -61,10 +62,10 @@ export default class LecturesSelection extends React.Component {
         };
         console.log("Check if there are schedules that were modified");
         if (this.state.simpleSchedule.length !== 0) {
-            this.state.simpleSchedule.forEach(schecule => {
+            this.state.simpleSchedule.forEach(schedule => {
                 complexSchedule.groups.push({
-                    groupId: schecule.groupId,
-                    lecture: schecule.lecture
+                    groupId: schedule.groupId,
+                    lecture: schedule.lecture
                 });
             })
         }

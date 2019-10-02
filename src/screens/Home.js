@@ -14,6 +14,7 @@ export default class Home extends React.Component {
                 {
                     identifier: "",
                     selectedGroup: "",
+                    groupName:"",
                     willModify: false
                 }
             ]
@@ -28,6 +29,7 @@ export default class Home extends React.Component {
                 found = true;
                 element.identifier = group.identifier;
                 element.selectedGroup = group.selectedGroup;
+                element.groupName = group.groupName;
                 element.willModify = group.willModify;
             }
         });
