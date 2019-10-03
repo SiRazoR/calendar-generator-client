@@ -132,3 +132,7 @@ export default class LecturesSelection extends React.Component {
         );
     }
 }
+    const styles = {
+        list: {
+            backgroundColor:"gray"
+        }};

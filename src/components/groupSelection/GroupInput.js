@@ -15,7 +15,7 @@ var groups = {}
 
 export default function GroupInput(props) {
     const classes = useStyles();
-
+    suggestions = [];
     axios.get('https://uek-calendar-generator.herokuapp.com/calendar/groups')
         .then(response => {
             groups = response.data

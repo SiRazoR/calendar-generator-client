@@ -8,7 +8,7 @@ export default class GroupSelection extends React.Component {
         super(props);
         this.state = {
             selectedGroup: "",
-            groupName:"",
+            setGroupId:"",
             willModify: false
         };
     }
