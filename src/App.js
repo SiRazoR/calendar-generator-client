@@ -9,9 +9,6 @@ import Header from './components/navigation/Header'
 import Footer from './components/navigation/Footer'
 import axios from "axios";
 
-const Line = () => (
-    <hr style={{color: '#f5f5f5'}}/>
-);
 
 export default class App extends React.Component {
 
@@ -64,11 +61,9 @@ export default class App extends React.Component {
     render() {
         return (
             <div style={styles.root}>
-                <Paper style={styles.card}>
-                    <div style={styles.main}>
-                        <Header activeStep={this.state.activeStep} steps={this.state.steps}/>
+                <div style={styles.card}>
+                        <Header style={styles.header} activeStep={this.state.activeStep} steps={this.state.steps}/>
                         <div style={styles.content}>
-                            <Line/>
                             {this.state.activeStep === 0 && <Home setSelectedGroups={this.setSelectedGroups}/>}
                             {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroups}
                                                                                setStepTwoCompleted={this.setStepTwoCompleted}
@@ -78,14 +73,12 @@ export default class App extends React.Component {
                             {this.state.activeStep === 2 && <Finish getGeneratedLink={this.state.generatedLink}/>}
                         </div>
                         <div style={styles.footer}>
-                            <Line/>
                             <Footer getActiveStep={this.state.activeStep} steps={this.state.steps}
                                     setActiveStep={this.setActiveStep} getSelectedGroups={this.state.selectedGroups}
                                     isStepTwoCompleted={this.state.isStepTwoCompleted}
                             />
                         </div>
-                    </div>
-                </Paper>
+                </div>
             </div>
         );
     }
@@ -96,28 +89,27 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         verticalAlign: 'center',
-        backgroundColor: "#f5f5f5",
-        minWidth: '400px',
         height: "100vh",
-    },
-    content: {
-        height: '80%'
-    },
-    footer: {
-        position: "absolute",
-        width: "100%",
-        bottom:10,
-        left:0
-    },
-    main: {
     },
     card: {
         position:"relative",
-        marginTop: 50,
-        marginBottom: 100,
+        //marginTop: 10,
+        //marginBottom: 10,
         padding: 5,
-        width: 1200,
-        maxWidth: 1200,
-        height: '80%'
+        width: "1300px",
+        // maxWidth: 1200
+    },
+    header: {
+        width: "100%",
+    },
+    content: {
+        //height:"78%"
+    },
+    footer: {
+        marginTop:"50px"
+        // position: "absolute",
+        // width: "100%",
+        // bottom:10,
+        // left:0
     }
 };

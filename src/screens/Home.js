@@ -1,7 +1,8 @@
 import React from 'react';
 import Fab from '@material-ui/core/Fab';
-import logo from '../resources/logo.png';
+import logo from '../resources/calendar.png';
 import GroupSelection from "../components/groupSelection/GroupSelection";
+import "../styles/Text.scss";
 
 export default class Home extends React.Component {
 
@@ -14,7 +15,7 @@ export default class Home extends React.Component {
                 {
                     identifier: "",
                     selectedGroup: "",
-                    groupName:"",
+                    groupName: "",
                     willModify: false
                 }
             ]
@@ -52,14 +53,17 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <div>
-                <div style={styles.logo}>
-                    <img src={logo} alt="Logo"/>
+            <div style={styles.content}>
+                <div style={styles.text}>
+                    <h1>UEK Calendar Generator <img src={logo} alt="Logo" style={styles.logo}/></h1>
+                    <h2>Do you want to connect your university schedule <br/>
+                        with powerfull planning tool as google calendar ? <br/><br/>
+                        Just simply search for your group. </h2>
                 </div>
                 <div style={styles.content}>
                     {this.state.groupSelectionSections}
                 </div>
-                <div style={styles.button}>
+                <div className={"button"}>
                     <div>
                         <Fab
                             variant="extended"
@@ -77,18 +81,23 @@ export default class Home extends React.Component {
         );
     }
 }
+
 const styles = {
+    text: {
+        textAlign: "center"
+    },
+    content: {
+        paddingTop:"10px"
+    },
     logo: {
+        width: "100%",
+        maxWidth: 120,
+        height: "auto"
+    },
+    image: {
         justifyContent: 'center',
         verticalAlign: 'center',
         display: 'flex',
-    },
-    content: {},
-    button: {
-        display: 'grid',
-        gridTemplateColumns: "1fr",
-        justifyItems: "end",
-        marginRight: 20
     },
     extendedIcon: {
         marginRight: 10,

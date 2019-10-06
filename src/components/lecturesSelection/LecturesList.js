@@ -10,6 +10,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import logo from "../../resources/calendar.png";
 
 function not(a, b) {
     return a.filter(value => b.indexOf(value) === -1);
@@ -166,7 +167,9 @@ function TransferList(lectures, props) {
     return (
 
         <React.Fragment>
-            {props.getGroup.groupName}
+            <div className={classes.text}>
+                <h2>{props.getGroup.groupName} </h2>
+            </div>
             <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
                 <Grid item>{customList('Generate calendar with', left)}</Grid>
                 <Grid item>
@@ -207,6 +210,9 @@ function TransferList(lectures, props) {
 const useStyles = makeStyles(theme => ({
     root: {
         margin: 'auto',
+    },
+    text: {
+        textAlign: "center"
     },
     cardHeader: {
         padding: theme.spacing(1, 2),

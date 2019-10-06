@@ -2,19 +2,23 @@ import React from 'react';
 import LecturesList from "../components/lecturesSelection/LecturesList";
 import axios from "axios";
 import Loader from 'react-loader-spinner'
+import "../styles/Text.scss";
 
 export default class LecturesSelection extends React.Component {
 
     state = {
         dataMounted: false,
+        error: false,
         completed: false,
         numberOfCompletedModifications: 0,
         simpleScheduleGroupsId: [],
         simpleSchedule: [],
         complexSchedule: []
     };
+
     async componentDidMount() {
         console.log("Mounted with groups: " + JSON.stringify(this.props.getSelectedGroups));
+        var apiError = this.setError;
         let groupsThatWillBeModified = this.getGroupsThatWillBeModified(this.props.getSelectedGroups);
         groupsThatWillBeModified.forEach(async (group) => {
                 console.log("Fetching data for group: " + group.selectedGroup);
@@ -29,11 +33,20 @@ export default class LecturesSelection extends React.Component {
                             console.log("Finished fetching data");
                             this.setState({dataMounted: true});
                         }
-                    })
+                    }).catch(
+                        function (error) {
+                            apiError()
+                        }
+                    )
                 ;
             }
         );
     }
+
+    setError = () => {
+        this.setState({dataMounted: false});
+        this.setState({error: true});
+    };
 
     getGroupsThatWillBeModified = (groups) => {
         let newList = [];
@@ -57,6 +70,7 @@ export default class LecturesSelection extends React.Component {
     };
 
     buildSchedule = () => {
+        var apiError = this.setError;
         let complexSchedule = {
             groups: []
         };
@@ -83,7 +97,11 @@ export default class LecturesSelection extends React.Component {
                         });
                         console.log("Finished fetching, proceed to prepareDataForFinishPage");
                         this.prepareDataForFinishPage(complexSchedule)
-                    });
+                    }).catch(
+                    function (error) {
+                        apiError()
+                    }
+                );
             })
         }
     };
@@ -121,18 +139,64 @@ export default class LecturesSelection extends React.Component {
                 this.renderLectures()
                 }
 
-                {this.state.dataMounted === false &&
-                <Loader
-                    type="Puff"
-                    color="#00BFFF"
-                    height="100"
-                    width="100"
-                />}
+                {this.state.dataMounted === false && this.state.error === false &&
+                <div style={styles.loadingContainer}>
+                    <div style={styles.center}>
+                        <div>
+                            <Loader type="CradleLoader"
+                                    height={100}
+                                    width={100}
+                            />
+                        </div>
+
+                    </div>
+                </div>
+                }
+                {this.state.error === true &&
+                <div style={styles.loadingContainer}>
+                    <div style={styles.center}>
+                        <p>
+                            <h1>There was an error while trying to get schedule</h1>
+                            <h2>Problem may occur when schedule is empty or choosen group is invalid.</h2>
+                        </p>
+                        <div style={styles.loader}>
+                            <Loader type="CradleLoader"
+                                    height={100}
+                                    width={100}
+                            />
+                        </div>
+
+                    </div>
+                </div>
+                }
+
+
             </React.Fragment>
         );
     }
 }
-    const styles = {
-        list: {
-            backgroundColor:"gray"
-        }};
+const styles = {
+    loadingContainer: {
+        height: "60vh",
+        position: "relative",
+        justifyContent: 'center',
+        verticalAlign: 'center',
+        display: 'flex',
+    },
+    loader: {
+        width: "150px",
+        marginTop:"30px",
+        marginLeft: "auto",
+        marginRight: "auto"
+    },
+    center: {
+        margin: 0,
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)"
+    },
+    list: {
+        backgroundColor: "gray"
+    }
+};

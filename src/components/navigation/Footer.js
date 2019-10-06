@@ -2,6 +2,10 @@ import React from 'react';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
+const Line = () => (
+    <hr style={{color: '#f5f5f5'}}/>
+);
+
 export default class Footer extends React.Component {
 
     shouldButtonBeGrayed = (groupList) => {
@@ -27,6 +31,7 @@ export default class Footer extends React.Component {
 
         return (
             <div style={styles.root}>
+                <Line/>
                 {activeStep === steps.length - 1 ? (
                     <div>
                         <Typography style={styles.instructions}>

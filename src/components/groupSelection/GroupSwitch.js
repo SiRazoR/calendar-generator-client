@@ -31,7 +31,6 @@ export default class GroupSwitch extends React.Component {
                         label={this.state.checked ? "Yes, please" : "No, thanks"}
                     />
                 </FormGroup>
-                {this.state.checked && <FormHelperText>You will have to fill another form</FormHelperText>}
             </FormControl>
         );
     }
