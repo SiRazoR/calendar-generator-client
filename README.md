@@ -1,5 +1,5 @@
 # Calendar-Generator
-This project contains two different application. One of which is calendar-generator-client, an application written in **React** to help user use my UEK schedule API. 
+This project contains two different applications. One of which is a calendar-generator-client, an application written in React to help user use my UEK schedule API.
 ## <a href="https://sirazor.github.io/calendar-generator-client/" target="_blank">LIVE PREVIEW</a>
 
 ### Description
