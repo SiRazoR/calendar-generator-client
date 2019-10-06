@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/SiRazoR/calendar-generator/precache-manifest.b3b7b58f5d52803e450cfa665a4d0cae.js"
+  "/calendar-generator-client/precache-manifest.e76c00fae5efe047f23b1aad2da24cf5.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/SiRazoR/calendar-generator/index.html", {
+workbox.routing.registerNavigationRoute("/calendar-generator-client/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
