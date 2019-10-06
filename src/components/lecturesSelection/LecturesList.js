@@ -55,7 +55,6 @@ function setIgnoredLectures(props, ignoredLectures) {
     lectureNames.forEach((name, index) => {
         props.getGroup.lecture.forEach(lecture => {
             if (lecture.name === name && lecture.dayOfTheWeek === days[index]) {
-                console.log("Ignore " + lecture.name + " on day " + lecture.dayOfTheWeek);
                 lecture.mandatory = false
             }
         })
@@ -63,7 +62,6 @@ function setIgnoredLectures(props, ignoredLectures) {
 }
 
 function resetMandatory(lectures) {
-    console.log("reset mandatory");
     lectures.forEach(lecture => {
         lecture.mandatory = true
     })
@@ -195,7 +193,7 @@ function TransferList(lectures, props) {
                                         disabled={leftChecked.length === 0}
                                         aria-label="move selected right"
                                     >
-                                        {useMediaQuery('(min-width:815px)') ? "🡺" : "🡻"}
+                                        {useMediaQuery('(min-width:815px)') ? "→" : "↓"}
                                     </Button>
                                     <Button
                                         variant="outlined"
@@ -205,7 +203,7 @@ function TransferList(lectures, props) {
                                         disabled={rightChecked.length === 0}
                                         aria-label="move selected left"
                                     >
-                                        {useMediaQuery('(min-width:815px)') ? "🡸" : "🡹"}
+                                        {useMediaQuery('(min-width:815px)') ? "←" : "↑"}
                                     </Button>
                                     <Button variant="contained" color="primary"
                                             disabled={disabled}

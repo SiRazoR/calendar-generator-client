@@ -26,7 +26,6 @@ export default class Home extends React.Component {
         let found = false;
         this.state.selectedGroups.forEach(element => {
             if (element.identifier === "" || element.identifier === group.identifier) {
-                console.log("Group already added, append data.");
                 found = true;
                 element.identifier = group.identifier;
                 element.selectedGroup = group.selectedGroup;
@@ -38,12 +37,10 @@ export default class Home extends React.Component {
             console.log("Group not found on the list, add new one.");
             this.state.selectedGroups.push(group)
         }
-        console.log("Current groups: " + JSON.stringify(this.state.selectedGroups));
         this.props.setSelectedGroups(this.state.selectedGroups);
     };
 
     addOneMoreGroupSection = () => {
-        console.log("Create switch for group " + this.state.numberOfGroups);
         this.setState({
             groupSelectionSections: [...this.state.groupSelectionSections,
                 <GroupSelection handleGroup={this.handleGroupChange} identifier={this.state.numberOfGroups}/>]

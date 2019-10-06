@@ -18,7 +18,6 @@ export default class Footer extends React.Component {
             });
         }
         if (this.props.getActiveStep === 1) {
-            console.log("should disable" + !this.props.isStepTwoCompleted);
             shouldDisable = !this.props.isStepTwoCompleted
         }
 

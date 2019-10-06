@@ -17,7 +17,6 @@ export default class LecturesSelection extends React.Component {
     };
 
     async componentDidMount() {
-        console.log("Mounted with groups: " + JSON.stringify(this.props.getSelectedGroups));
         const apiError = this.setError;
         let groupsThatWillBeModified = this.getGroupsThatWillBeModified(this.props.getSelectedGroups);
         groupsThatWillBeModified.forEach(async (group) => {
@@ -65,7 +64,6 @@ export default class LecturesSelection extends React.Component {
             console.log("List contains only groups with full schedule thad don't need modification. Build schedule");
             this.buildSchedule()
         }
-        console.log("Distinct mandatory groups " + groupIds);
         return newList;
     };
 
@@ -111,7 +109,11 @@ export default class LecturesSelection extends React.Component {
         axios.post('https://uek-calendar-generator.herokuapp.com/calendar/complex', complexSchedule)
             .then(response => {
                 this.props.setGeneratedLink(baseURL + response.data.id);
-            });
+            }).catch(
+            function (error) {
+                console.log(error)
+            }
+        );
         this.setState({completed: true});
         this.props.setStepTwoCompleted(true);
         this.props.setActiveStep(this.props.getActiveStep + 1)
@@ -155,10 +157,8 @@ export default class LecturesSelection extends React.Component {
                 {this.state.error === true &&
                 <div style={styles.loadingContainer}>
                     <div className={"error"}>
-                        <p>
                             <h1>There was an error while trying to get schedule</h1>
                             <h2>Problem may occur when schedule is empty or choosen group is invalid.</h2>
-                        </p>
                         <div style={styles.loader}>
                             <Loader type="CradleLoader"
                                     height={100}

@@ -28,8 +28,11 @@ export default class App extends React.Component {
             generatedLink: ""
         };
 
-        console.log("Waking up API that provides calendar data.");
-        axios.get('https://uek-calendar-generator.herokuapp.com/')
+        console.log("Waking up API");
+        axios.get('https://uek-calendar-generator.herokuapp.com/').catch(
+            function (error) {
+                console.log(error)
+            })
     }
 
     setActiveStep = (value) => {
@@ -103,7 +106,7 @@ const styles = {
         width: "100%",
     },
     content: {
-        //height:"78%"
+       // height:"60%"
     },
     footer: {
         marginTop: "50px"

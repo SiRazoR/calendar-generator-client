@@ -21,6 +21,9 @@ export default function GroupInput(props) {
             for (var key in response.data) {
                 suggestions.push({label: response.data[key]})
             }
+        }).catch(
+        function (error) {
+            console.log(error)
         });
 
     return (
