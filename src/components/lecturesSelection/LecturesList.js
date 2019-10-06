@@ -10,7 +10,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import logo from "../../resources/calendar.png";
+import "../../styles/Table.scss";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function not(a, b) {
     return a.filter(value => b.indexOf(value) === -1);
@@ -28,7 +29,7 @@ export default function LecturesList(props) {
     return TransferList(convertLectureToReadableArray(props.getGroup), props)
 }
 
-const stringRepresentationOfDays =["", " w niedziele", " w poniedziałki", " we wtorki", " w środy", " w czwartki", " w piątki", " w soboty"];
+const stringRepresentationOfDays =["", " on Sundays", " on Mondays", " on Tuesdays", " on Wednesdays", " on Thursdays", " on Fridays", " on Saturdays"];
 
 function convertLectureToReadableArray(group) {
     let lectures = [];
@@ -69,7 +70,7 @@ function resetMandatory(lectures) {
 }
 
 function TransferList(lectures, props) {
-    const classes = useStyles();
+    const styles = useStyles();
     const [checked, setChecked] = React.useState([]);
     const [left, setLeft] = React.useState(lectures);
     const [right, setRight] = React.useState([]);
@@ -126,7 +127,7 @@ function TransferList(lectures, props) {
     const customList = (title, items) => (
         <Card>
             <CardHeader
-                className={classes.cardHeader}
+                className={styles.cardHeader}
                 disabled={disabled}
                 avatar={
                     <Checkbox
@@ -141,7 +142,7 @@ function TransferList(lectures, props) {
                 subheader={`${items.length} lectures`}
             />
             <Divider/>
-            <List className={classes.list} dense component="div" role="list">
+            <List className={styles.list} dense component="div" role="list">
                 {items.map(value => {
                     const labelId = `transfer-list-all-item-${value}-label`;
 
@@ -165,57 +166,79 @@ function TransferList(lectures, props) {
     );
 
     return (
+        <div className={styles.card}>
+        <Card>
+            <CardHeader
+                className={styles.cardHeader}
+                title={<div className={styles.text}>
+                    <h2>{props.getGroup.groupName} </h2>
+                </div>}
+            />
+            <Divider/>
 
-        <React.Fragment>
-            <div className={classes.text}>
-                <h2>{props.getGroup.groupName} </h2>
-            </div>
-            <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
+            <Grid
+                container spacing={2}
+                justify="center"
+                alignItems="center"
+                className={"root"}
+                >
+                <div className={"gridMediaQuerries"}>
                 <Grid item>{customList('Generate calendar with', left)}</Grid>
                 <Grid item>
                     <Grid container direction="column" alignItems="center">
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            className={classes.button}
-                            onClick={handleCheckedRight}
-                            disabled={leftChecked.length === 0}
-                            aria-label="move selected right"
-                        >
-                            &gt;
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            className={classes.button}
-                            onClick={handleCheckedLeft}
-                            disabled={rightChecked.length === 0}
-                            aria-label="move selected left"
-                        >
-                            &lt;
-                        </Button>
-                        <Button variant="contained" color="primary"
-                                disabled={disabled}
-                                onClick={setDone}>
-                            Done
-                        </Button>
+                        <div className={"buttonsMediaQuerries"}>
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                className={styles.button}
+                                onClick={handleCheckedRight}
+                                disabled={leftChecked.length === 0}
+                                aria-label="move selected right"
+                            >
+                                {useMediaQuery('(min-width:815px)')? "→" : "↓"}
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                className={styles.button}
+                                onClick={handleCheckedLeft}
+                                disabled={rightChecked.length === 0}
+                                aria-label="move selected left"
+                            >
+                                {useMediaQuery('(min-width:815px)')? "←" : "↑"}
+                            </Button>
+                            <Button variant="contained" color="primary"
+                                    disabled={disabled}
+                                    onClick={setDone}>
+                                Done
+                            </Button>
+                        </div>
                     </Grid>
                 </Grid>
                 <Grid item>{customList('Ignore', right)}</Grid>
+                </div>
             </Grid>
-        </React.Fragment>
+
+        </Card>
+        </div>
     );
 }
 
 const useStyles = makeStyles(theme => ({
     root: {
-        margin: 'auto',
+        //margin: 'auto',
+    },
+    card: {
+        paddingBottom: "15px",
+        width: "fit-content",
+        marginLeft: "auto",
+        marginRight: "auto"
     },
     text: {
         textAlign: "center"
     },
     cardHeader: {
-        padding: theme.spacing(1, 2),
+        padding: "8px",
     },
     list: {
         width: 350,

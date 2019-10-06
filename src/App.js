@@ -93,6 +93,7 @@ const styles = {
     },
     card: {
         position:"relative",
+        marginLeft: "10px",
         //marginTop: 10,
         //marginBottom: 10,
         padding: 5,

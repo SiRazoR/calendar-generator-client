@@ -1,3 +1,11 @@
+.error {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 h1 {
   font-size: 45px;
   color: #3D393B;
@@ -26,12 +34,17 @@ h2 {
     font-size: 20px;
   }
   .button {
-    margin-left: 55%
+    margin-left: 50%
+  }
+  .error {
+    top: 30%;
+    left: 20%;
+    transform: translate(-15%, -50%);
   }
 }
 
 @media screen and (max-width: 430px) {
-  h2 {
-    font-size: 17px;
-  }
+  //h2 {
+  //  font-size: 17px;
+  //}
 }

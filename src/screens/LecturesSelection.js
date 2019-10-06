@@ -154,7 +154,7 @@ export default class LecturesSelection extends React.Component {
                 }
                 {this.state.error === true &&
                 <div style={styles.loadingContainer}>
-                    <div style={styles.center}>
+                    <div className={"error"}>
                         <p>
                             <h1>There was an error while trying to get schedule</h1>
                             <h2>Problem may occur when schedule is empty or choosen group is invalid.</h2>
