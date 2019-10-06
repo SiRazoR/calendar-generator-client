@@ -43,7 +43,6 @@ export default class App extends React.Component {
         console.log("Waking up API");
         axios.get('https://uek-calendar-generator.herokuapp.com/wake')
             .then(response => {
-                console.log("response status" + response.status);
                 if (response.status === 200) {
                     console.log("Got API response! We are ready to go!");
                     this.setState({apiIsRunning: true});
