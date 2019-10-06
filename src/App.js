@@ -14,7 +14,6 @@ import Dialog from "@material-ui/core/Dialog";
 import Draggable from "react-draggable";
 import Paper from "@material-ui/core/Paper";
 
-
 export default class App extends React.Component {
 
     constructor(props) {
@@ -41,7 +40,7 @@ export default class App extends React.Component {
 
     componentDidMount() {
         console.log("Waking up API");
-        axios.get('https://uek-calendar-generator.herokuapp.com/wake')
+        axios.get('https://cors-anywhere.herokuapp.com/https://uek-calendar-generator.herokuapp.com/wake')
             .then(response => {
                 if (response.status === 200) {
                     console.log("Got API response! We are ready to go!");
