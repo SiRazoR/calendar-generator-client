@@ -1,6 +1,6 @@
 {
   "name": "calendar-generator-client",
-  "homepage": "https://github.com/SiRazoR/calendar-generator",
+  "homepage": "https://sirazor.github.io/calendar-generator-client/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +10,7 @@
     "classname": "0.0.0",
     "downshift": "^3.2.10",
     "gh-pages": "^2.1.1",
+    "netlify-cli": "^2.15.0",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
