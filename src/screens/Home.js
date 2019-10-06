@@ -87,7 +87,7 @@ const styles = {
         textAlign: "center"
     },
     content: {
-        paddingTop:"10px"
+        paddingTop: "10px"
     },
     logo: {
         width: "100%",

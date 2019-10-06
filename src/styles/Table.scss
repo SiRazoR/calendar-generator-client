@@ -1,18 +1,18 @@
-.buttonsMediaQuerries{
-display: grid;
+.buttonsMediaQueries {
+  display: grid;
 }
 
-.gridMediaQuerries {
+.gridMediaQueries {
   display: flex;
   padding-top: 10px;
   align-items: center;
 }
 
 @media screen and (max-width: 815px) {
-  .gridMediaQuerries {
+  .gridMediaQueries {
     display: block;
   }
-  .buttonsMediaQuerries {
+  .buttonsMediaQueries {
     display: inline;
     text-align: center;
   }

@@ -29,7 +29,7 @@ export default function LecturesList(props) {
     return TransferList(convertLectureToReadableArray(props.getGroup), props)
 }
 
-const stringRepresentationOfDays =["", " on Sundays", " on Mondays", " on Tuesdays", " on Wednesdays", " on Thursdays", " on Fridays", " on Saturdays"];
+const stringRepresentationOfDays = ["", " on Sundays", " on Mondays", " on Tuesdays", " on Wednesdays", " on Thursdays", " on Fridays", " on Saturdays"];
 
 function convertLectureToReadableArray(group) {
     let lectures = [];
@@ -44,8 +44,8 @@ function setIgnoredLectures(props, ignoredLectures) {
     let days = [];
     let lectureNames = [];
     ignoredLectures.forEach(lecture => {
-        stringRepresentationOfDays.forEach((day,numericDay) => {
-            if(lecture.includes(day)){
+        stringRepresentationOfDays.forEach((day, numericDay) => {
+            if (lecture.includes(day)) {
                 days.push(numericDay);
                 lectureNames.push(lecture.split(day)[0]);
             }
@@ -54,7 +54,7 @@ function setIgnoredLectures(props, ignoredLectures) {
 
     lectureNames.forEach((name, index) => {
         props.getGroup.lecture.forEach(lecture => {
-            if (lecture.name == name && lecture.dayOfTheWeek == days[index]) {
+            if (lecture.name === name && lecture.dayOfTheWeek === days[index]) {
                 console.log("Ignore " + lecture.name + " on day " + lecture.dayOfTheWeek);
                 lecture.mandatory = false
             }
@@ -167,59 +167,59 @@ function TransferList(lectures, props) {
 
     return (
         <div className={styles.card}>
-        <Card>
-            <CardHeader
-                className={styles.cardHeader}
-                title={<div className={styles.text}>
-                    <h2>{props.getGroup.groupName} </h2>
-                </div>}
-            />
-            <Divider/>
+            <Card>
+                <CardHeader
+                    className={styles.cardHeader}
+                    title={<div className={styles.text}>
+                        <h2>{props.getGroup.groupName} </h2>
+                    </div>}
+                />
+                <Divider/>
 
-            <Grid
-                container spacing={2}
-                justify="center"
-                alignItems="center"
-                className={"root"}
+                <Grid
+                    container spacing={2}
+                    justify="center"
+                    alignItems="center"
+                    className={"root"}
                 >
-                <div className={"gridMediaQuerries"}>
-                <Grid item>{customList('Generate calendar with', left)}</Grid>
-                <Grid item>
-                    <Grid container direction="column" alignItems="center">
-                        <div className={"buttonsMediaQuerries"}>
-                            <Button
-                                variant="outlined"
-                                size="small"
-                                className={styles.button}
-                                onClick={handleCheckedRight}
-                                disabled={leftChecked.length === 0}
-                                aria-label="move selected right"
-                            >
-                                {useMediaQuery('(min-width:815px)')? "→" : "↓"}
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                size="small"
-                                className={styles.button}
-                                onClick={handleCheckedLeft}
-                                disabled={rightChecked.length === 0}
-                                aria-label="move selected left"
-                            >
-                                {useMediaQuery('(min-width:815px)')? "←" : "↑"}
-                            </Button>
-                            <Button variant="contained" color="primary"
-                                    disabled={disabled}
-                                    onClick={setDone}>
-                                Done
-                            </Button>
-                        </div>
-                    </Grid>
+                    <div className={"gridMediaQueries"}>
+                        <Grid item>{customList('Generate calendar with', left)}</Grid>
+                        <Grid item>
+                            <Grid container direction="column" alignItems="center">
+                                <div className={"buttonsMediaQueries"}>
+                                    <Button
+                                        variant="outlined"
+                                        size="small"
+                                        className={styles.button}
+                                        onClick={handleCheckedRight}
+                                        disabled={leftChecked.length === 0}
+                                        aria-label="move selected right"
+                                    >
+                                        {useMediaQuery('(min-width:815px)') ? "🡺" : "🡻"}
+                                    </Button>
+                                    <Button
+                                        variant="outlined"
+                                        size="small"
+                                        className={styles.button}
+                                        onClick={handleCheckedLeft}
+                                        disabled={rightChecked.length === 0}
+                                        aria-label="move selected left"
+                                    >
+                                        {useMediaQuery('(min-width:815px)') ? "🡸" : "🡹"}
+                                    </Button>
+                                    <Button variant="contained" color="primary"
+                                            disabled={disabled}
+                                            onClick={setDone}>
+                                        Done
+                                    </Button>
+                                </div>
+                            </Grid>
+                        </Grid>
+                        <Grid item>{customList('Ignore', right)}</Grid>
+                    </div>
                 </Grid>
-                <Grid item>{customList('Ignore', right)}</Grid>
-                </div>
-            </Grid>
 
-        </Card>
+            </Card>
         </div>
     );
 }

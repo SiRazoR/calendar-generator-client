@@ -8,20 +8,19 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from "axios";
 
-var suggestions = [
-];
+let suggestions = [];
 
-var groups = {}
+let groups = {};
 
 export default function GroupInput(props) {
     const classes = useStyles();
     suggestions = [];
     axios.get('https://uek-calendar-generator.herokuapp.com/calendar/groups')
         .then(response => {
-            groups = response.data
-            for(var key in response.data){
-                suggestions.push({label:response.data[key]})
-             }
+            groups = response.data;
+            for (var key in response.data) {
+                suggestions.push({label: response.data[key]})
+            }
         });
 
     return (
@@ -38,7 +37,7 @@ export default function GroupInput(props) {
                       selectedItem,
                   }) => {
                     if (selectedItem === inputValue && isOpen === false) {
-                        props.setGroupId(getKeyByValue(groups,selectedItem), selectedItem);
+                        props.setGroupId(getKeyByValue(groups, selectedItem), selectedItem);
                     }
                     const {onBlur, onFocus, ...inputProps} = getInputProps({
                         placeholder: 'Search for your group',
@@ -78,7 +77,7 @@ export default function GroupInput(props) {
     );
 }
 
-function getKeyByValue(object, value) {  
+function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
 

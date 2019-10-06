@@ -8,7 +8,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Draggable from 'react-draggable';
-import {Link} from 'react-router-dom'
 
 export default class Finish extends React.Component {
 
@@ -52,10 +51,10 @@ export default class Finish extends React.Component {
                         </Button>
                     </CopyToClipboard>
 
-                        <Button variant="outlined" color="primary" href={'https://calendar.google.com/calendar/r/settings/addbyurl'}>
-                            open google calendar
-                        </Button>
-
+                    <Button variant="outlined" color="primary"
+                            href={'https://calendar.google.com/calendar/r/settings/addbyurl'}>
+                        open google calendar
+                    </Button>
 
                     <Dialog
                         open={this.state.open}
@@ -68,7 +67,8 @@ export default class Finish extends React.Component {
                         </DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Now you can import calendar with generated URL. Click button to redirect directly to settings.
+                                Now you can import calendar with generated URL. Click button to redirect directly to
+                                settings.
                             </DialogContentText>
                         </DialogContent>
                     </Dialog>
@@ -77,20 +77,3 @@ export default class Finish extends React.Component {
         );
     }
 }
-
-const styles = {
-    container: {
-        display: "flex",
-        flexWrap: "wrap"
-    },
-    textField: {
-        marginLeft: 10,
-        marginRight: 10
-    },
-    dense: {
-        marginTop: 10
-    },
-    menu: {
-        width: 200
-    }
-};

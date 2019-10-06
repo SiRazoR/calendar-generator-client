@@ -18,7 +18,7 @@ export default class LecturesSelection extends React.Component {
 
     async componentDidMount() {
         console.log("Mounted with groups: " + JSON.stringify(this.props.getSelectedGroups));
-        var apiError = this.setError;
+        const apiError = this.setError;
         let groupsThatWillBeModified = this.getGroupsThatWillBeModified(this.props.getSelectedGroups);
         groupsThatWillBeModified.forEach(async (group) => {
                 console.log("Fetching data for group: " + group.selectedGroup);
@@ -70,7 +70,7 @@ export default class LecturesSelection extends React.Component {
     };
 
     buildSchedule = () => {
-        var apiError = this.setError;
+        const apiError = this.setError;
         let complexSchedule = {
             groups: []
         };
@@ -185,7 +185,7 @@ const styles = {
     },
     loader: {
         width: "150px",
-        marginTop:"30px",
+        marginTop: "30px",
         marginLeft: "auto",
         marginRight: "auto"
     },

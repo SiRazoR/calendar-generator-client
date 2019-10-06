@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import Paper from "@material-ui/core/Paper";
 import Home from './screens/Home'
 import Finish from './screens/Finish'
 import LecturesSelection from './screens/LecturesSelection'
@@ -21,7 +20,7 @@ export default class App extends React.Component {
                 {
                     identifier: "",
                     selectedGroup: "",
-                    groupName:"",
+                    groupName: "",
                     willModify: false
                 }
             ],
@@ -35,11 +34,11 @@ export default class App extends React.Component {
 
     setActiveStep = (value) => {
         this.setState({activeStep: value});
-        if(value === 0) {
+        if (value === 0) {
             this.setSelectedGroups([{
                 identifier: "",
                 selectedGroup: "",
-                groupName:"",
+                groupName: "",
                 willModify: false
             }]);
         }
@@ -62,22 +61,22 @@ export default class App extends React.Component {
         return (
             <div style={styles.root}>
                 <div style={styles.card}>
-                        <Header style={styles.header} activeStep={this.state.activeStep} steps={this.state.steps}/>
-                        <div style={styles.content}>
-                            {this.state.activeStep === 0 && <Home setSelectedGroups={this.setSelectedGroups}/>}
-                            {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroups}
-                                                                               setStepTwoCompleted={this.setStepTwoCompleted}
-                                                                               setGeneratedLink={this.setGeneratedLink}
-                                                                               setActiveStep={this.setActiveStep}
-                                                                               getActiveStep={this.state.activeStep}/>}
-                            {this.state.activeStep === 2 && <Finish getGeneratedLink={this.state.generatedLink}/>}
-                        </div>
-                        <div style={styles.footer}>
-                            <Footer getActiveStep={this.state.activeStep} steps={this.state.steps}
-                                    setActiveStep={this.setActiveStep} getSelectedGroups={this.state.selectedGroups}
-                                    isStepTwoCompleted={this.state.isStepTwoCompleted}
-                            />
-                        </div>
+                    <Header style={styles.header} activeStep={this.state.activeStep} steps={this.state.steps}/>
+                    <div style={styles.content}>
+                        {this.state.activeStep === 0 && <Home setSelectedGroups={this.setSelectedGroups}/>}
+                        {this.state.activeStep === 1 && <LecturesSelection getSelectedGroups={this.state.selectedGroups}
+                                                                           setStepTwoCompleted={this.setStepTwoCompleted}
+                                                                           setGeneratedLink={this.setGeneratedLink}
+                                                                           setActiveStep={this.setActiveStep}
+                                                                           getActiveStep={this.state.activeStep}/>}
+                        {this.state.activeStep === 2 && <Finish getGeneratedLink={this.state.generatedLink}/>}
+                    </div>
+                    <div style={styles.footer}>
+                        <Footer getActiveStep={this.state.activeStep} steps={this.state.steps}
+                                setActiveStep={this.setActiveStep} getSelectedGroups={this.state.selectedGroups}
+                                isStepTwoCompleted={this.state.isStepTwoCompleted}
+                        />
+                    </div>
                 </div>
             </div>
         );
@@ -92,7 +91,7 @@ const styles = {
         height: "100vh",
     },
     card: {
-        position:"relative",
+        position: "relative",
         marginLeft: "10px",
         //marginTop: 10,
         //marginBottom: 10,
@@ -107,7 +106,7 @@ const styles = {
         //height:"78%"
     },
     footer: {
-        marginTop:"50px"
+        marginTop: "50px"
         // position: "absolute",
         // width: "100%",
         // bottom:10,
