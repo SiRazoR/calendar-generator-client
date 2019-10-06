@@ -105,7 +105,7 @@ export default class App extends React.Component {
                     </DialogTitle>
                     <DialogContent style={{textAlign: "center"}}>
                         <DialogContentText>
-                            Please be patient, calendar API is deployed on free server so it needs to be waken up.
+                            Please be patient, calendar API is deployed on a free server so it needs to be waken up.
                             <br/><br/>
                             This window will disappear in a moment.
                         </DialogContentText>

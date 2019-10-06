@@ -54,7 +54,7 @@ export default class Home extends React.Component {
                 <div style={styles.text}>
                     <h1>UEK Calendar Generator <img src={logo} alt="Logo" style={styles.logo}/></h1>
                     <h2>Do you want to connect your university schedule <br/>
-                        with powerfull planning tool as google calendar ? <br/><br/>
+                        with a powerful planning tool as google calendar? <br/><br/>
                         Just simply search for your group. </h2>
                 </div>
                 <div style={styles.content}>

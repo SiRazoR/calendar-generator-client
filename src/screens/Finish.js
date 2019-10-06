@@ -74,7 +74,7 @@ export default class Finish extends React.Component {
                     <DialogContent style={{textAlign: "center"}}>
                         <DialogContentText>
                             Now you are ready to paste copied URL into your google calendar.
-                            <br/><br/>Click "Open google calendar" button below to be redirected directly into the
+                            <br/><br/>Click "Open Google calendar" button below to be redirected directly into the
                             settings.
                         </DialogContentText>
                     </DialogContent>

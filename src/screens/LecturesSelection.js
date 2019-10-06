@@ -157,8 +157,8 @@ export default class LecturesSelection extends React.Component {
                 {this.state.error === true &&
                 <div style={styles.loadingContainer}>
                     <div className={"error"}>
-                            <h1>There was an error while trying to get schedule</h1>
-                            <h2>Problem may occur when schedule is empty or choosen group is invalid.</h2>
+                            <h1>There was an error while trying to get a schedule.</h1>
+                            <h2>This problem may occur when the schedule is empty</h2>
                         <div style={styles.loader}>
                             <Loader type="CradleLoader"
                                     height={100}
@@ -169,8 +169,6 @@ export default class LecturesSelection extends React.Component {
                     </div>
                 </div>
                 }
-
-
             </React.Fragment>
         );
     }
